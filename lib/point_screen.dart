@@ -34,7 +34,7 @@ class _PointScreenState extends State<PointScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              for (var point in locationNotifier.points)
+              for (var point in locationNotifier.getLayerPoints())
                 Container(
                   height: 114,
                   width: double.infinity,

@@ -17,14 +17,23 @@ class MapModel extends ChangeNotifier {
   String? _pointName;
   int _pointCounter = 0;
 
-  List<LatLng> get _layerPoints => [
-        LatLng(55.755793, 37.617134),
-        LatLng(55.095960, 38.765519),
-        LatLng(56.129038, 40.406502),
-        LatLng(54.513645, 36.261268),
-        LatLng(54.193122, 37.617177),
-        LatLng(54.629540, 39.741809),
-      ];
+  final List<LatLng> layerPoints = [
+    LatLng(55.755793, 37.617134),
+    LatLng(55.095960, 38.765519),
+    LatLng(56.129038, 40.406502),
+    LatLng(54.513645, 36.261268),
+    LatLng(54.193122, 37.617177),
+    LatLng(54.629540, 39.741809),
+  ];
+
+  List<Point> getLayerPoints() {
+    return layerPoints
+        .map((layerPoint) => Point(
+            name: 'Точка',
+            latitude: layerPoint.latitude,
+            longitude: layerPoint.longitude))
+        .toList();
+  }
 
   MapController get mapController => _mapController;
   List<Point> get points => _points;
@@ -122,6 +131,15 @@ class _MapScreenState extends State<MapScreen> {
                         ),
                       ),
                     ),
+                  for (var point in locationNotifier.layerPoints)
+                    Marker(
+                      height: 30.0,
+                      width: 30.0,
+                      point: point,
+                      builder: (context) => Container(
+                        child: Image.asset('lib/assets/Location.png'),
+                      ),
+                    )
                 ],
               ),
             ],
